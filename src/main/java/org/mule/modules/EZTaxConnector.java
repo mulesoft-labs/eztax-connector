@@ -20,15 +20,20 @@
  */
 package org.mule.modules;
 
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ValidateConnection;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.param.ConnectionKey;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.commons.lang.NotImplementedException;
+import org.datacontract.schemas._2004._07.eztaxwebservice.ArrayOfAddressData;
+import org.datacontract.schemas._2004._07.eztaxwebservice.ArrayOfTaxData;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.param.ConnectionKey;
 
 /**
  * Cloud Connector
@@ -42,17 +47,12 @@ public class EZTaxConnector
      * Configurable
      */
     @Configurable
-    private String myProperty;
-
-    /**
-     * Set property
-     *
-     * @param myProperty My property
-     */
-    public void setMyProperty(String myProperty)
-    {
-        this.myProperty = myProperty;
-    }
+    private String username;
+    
+    @Configurable
+    private String password;
+    
+    
 
     /**
      * Connect
@@ -102,14 +102,119 @@ public class EZTaxConnector
      *
      * @param content Content to be processed
      * @return Some string
+     * 
+     * <calculate-taxes strategy="FIPS"
+customer-type="RESIDENTIAL" sale="true" service-class="PRIMARY_LOCAL" .../>
      */
     @Processor
-    public String myProcessor(String content)
+    public ArrayOfTaxData calculateTaxes(String strategy,
+                                         String customerType,
+                                         Boolean sale,
+                                         String serviceClass)
     {
-        /*
-         * MESSAGE PROCESSOR CODE GOES HERE
-         */
+        throw new NotImplementedException();
+    }
+    
+    //<calculate-adjustment strategy="FIPS" customer-type="RESIDENTIAL" sale="true" service-class="PRIMARY_LOCAL" .../>
+    @Processor
+    public ArrayOfTaxData calculateAdjustment(String strategy,
+                                      String customerType,
+                                      Boolean sale,
+                                      String serviceClass)
+    {
+        throw new NotImplementedException();
+    }
+    
+    //<get-address pcode="#[map-payload:anIntegerCode]"/>
+    @Processor
+    public ArrayOfAddressData getAddress(Long pCode)
+    {
+        throw new NotImplementedException();
+    }
+    //<get-tax-category taxCode="#[map-payload:anIntegerTaxCode]"/>
+    @Processor
+    public String getTaxCategory(Integer taxCode)
+    {
+        throw new NotImplementedException();
+    }
+    
+    //<get-tax-description pcode="#[map-payload:anIntegerCode]"/>
+    @Processor
+    public String getTaxDescription(Integer taxCode)
+    {
+        throw new NotImplementedException();
+    }
+    
+    //<convert-fips-to-pcode fips="#[map-payload:fipsCode]"/>
+    @Processor
+    public Long convertFipsToPcode(String fips)
+    {
+        throw new NotImplementedException();
+    }
+    
+    //<convert-npanxx-to-pcode npanxxCode="#[map-payload:npanxxCode]"/>
+    @Processor
+    public Long convertNpanxxToPcode(String npanxxCode)
+    {
+        throw new NotImplementedException();
+    }
+    
+    //<convert-zip-to-pcode zipCode="#[map-payload:aZipCode]"/>
+    @Processor
+    public Long convertZipToPcode(String zipCode)
+    {
+        throw new NotImplementedException();
+    }
+    
+    //<get-server-time/>
+    @Processor
+    public XMLGregorianCalendar getServerTime()
+    {
+        throw new NotImplementedException();
+    }
+    
 
-        return content;
+    /**
+     * Returns the username.
+     * 
+     * @return  with the username.
+     */
+    
+    public String getUsername()
+    {
+        return username;
+    }
+
+    /**
+     * Sets the username. 
+     *
+     * @param username  with the username.
+     */
+    
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    /**
+     * Returns the password.
+     * 
+     * @return  with the password.
+     */
+    
+    public String getPassword()
+    {
+        return password;
+    }
+
+    /**
+     * Sets the password. 
+     *
+     * @param password  with the password.
+     */
+    
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 }

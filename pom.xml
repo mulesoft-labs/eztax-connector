@@ -14,6 +14,7 @@
         <junit.version>4.8.2</junit.version>
         <mockito.version>1.8.2</mockito.version>
         <cxf.version>2.3.0</cxf.version>
+        <commons.wsse.version>1.0-beta-1</commons.wsse.version>
     </properties>
     <build>
         <pluginManagement>
@@ -209,6 +210,11 @@
             <artifactId>mule-tests-functional</artifactId>
             <version>${mule.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaubersoftware</groupId>
+            <artifactId>commons-wsse</artifactId>
+            <version>${commons.wsse.version}</version>
         </dependency>
     </dependencies>
 

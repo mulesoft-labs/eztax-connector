@@ -15,6 +15,7 @@
         <mockito.version>1.8.2</mockito.version>
         <cxf.version>2.3.0</cxf.version>
         <commons.wsse.version>1.0-beta-1</commons.wsse.version>
+        <mom.version>1.2.1</mom.version>
     </properties>
     <build>
         <pluginManagement>
@@ -150,6 +151,9 @@
 		              <wsdlOptions>
 		                <wsdlOption>
                           <wsdl>src/main/resources/schema/EZTaxWebService1.wsdl</wsdl>
+                          <bindingFiles>
+                             <bindingFile>src/main/resources/schema/bindings.xml</bindingFile>
+                          </bindingFiles>
                           <autoNameResolution>true</autoNameResolution>
                         </wsdlOption>
 		              </wsdlOptions>
@@ -215,6 +219,11 @@
             <groupId>com.zaubersoftware</groupId>
             <artifactId>commons-wsse</artifactId>
             <version>${commons.wsse.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zaubersoftware</groupId>
+            <artifactId>mom</artifactId>
+            <version>${mom.version}</version>
         </dependency>
     </dependencies>
 

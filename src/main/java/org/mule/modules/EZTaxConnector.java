@@ -20,13 +20,15 @@
  */
 package org.mule.modules;
 
+import java.util.List;
+
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.datacontract.schemas._2004._07.eztaxwebservice.ArrayOfAddressData;
-import org.datacontract.schemas._2004._07.eztaxwebservice.ArrayOfTaxData;
+import org.datacontract.schemas._2004._07.eztaxwebservice.AddressData;
+import org.datacontract.schemas._2004._07.eztaxwebservice.TaxData;
+import org.datacontract.schemas._2004._07.eztaxwebservice.Transaction;
+import org.datacontract.schemas._2004._07.eztaxwebservice.ZipAddress;
 import org.mule.api.ConnectionException;
-import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Connector;
@@ -34,6 +36,8 @@ import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.modules.api.DefaultEZTaxClient;
+import org.mule.modules.api.EZTaxClient;
 
 /**
  * Cloud Connector
@@ -43,17 +47,19 @@ import org.mule.api.annotations.param.ConnectionKey;
 @Connector(name="eztax", schemaVersion="1.0-SNAPSHOT")
 public class EZTaxConnector
 {
-    /**
-     * Configurable
-     */
-    @Configurable
-    private String username;
+//    /**
+//     * Configurable
+//     */
+//    @Configurable
+//    private String username;
+//    
+//    /**
+//     * Configurable
+//     */
+//    @Configurable
+//    private String password;
     
-    @Configurable
-    private String password;
-    
-    
-
+    private EZTaxClient client = null;
     /**
      * Connect
      *
@@ -64,9 +70,9 @@ public class EZTaxConnector
     @Connect
     public void connect(@ConnectionKey String username, String password)
         throws ConnectionException {
-        /*
-         * CODE FOR ESTABLISHING A CONNECTION GOES IN HERE
-         */
+        if( client == null) {
+            client =  new DefaultEZTaxClient(username, password);
+        }
     }
 
     /**
@@ -74,9 +80,7 @@ public class EZTaxConnector
      */
     @Disconnect
     public void disconnect() {
-        /*
-         * CODE FOR CLOSING A CONNECTION GOES IN HERE
-         */
+        client = null;
     }
 
     /**
@@ -84,7 +88,7 @@ public class EZTaxConnector
      */
     @ValidateConnection
     public boolean isConnected() {
-        return true;
+        return client != null;
     }
 
     /**
@@ -103,118 +107,77 @@ public class EZTaxConnector
      * @param content Content to be processed
      * @return Some string
      * 
-     * <calculate-taxes strategy="FIPS"
-customer-type="RESIDENTIAL" sale="true" service-class="PRIMARY_LOCAL" .../>
+     * <calculate-taxes strategy="FIPS" customer-type="RESIDENTIAL" sale="true" service-class="PRIMARY_LOCAL" .../>
      */
     @Processor
-    public ArrayOfTaxData calculateTaxes(String strategy,
-                                         String customerType,
-                                         Boolean sale,
-                                         String serviceClass)
+    public List<TaxData> calculateTaxes(CalculationStrategyType strategy,
+                                        String customerType,
+                                        Boolean sale,
+                                        String serviceClass)
     {
-        throw new NotImplementedException();
+        return client.calculateTaxes(strategy, new Transaction()).getTaxData();
     }
     
     //<calculate-adjustment strategy="FIPS" customer-type="RESIDENTIAL" sale="true" service-class="PRIMARY_LOCAL" .../>
     @Processor
-    public ArrayOfTaxData calculateAdjustment(String strategy,
-                                      String customerType,
-                                      Boolean sale,
-                                      String serviceClass)
+    public List<TaxData> calculateAdjustment(CalculationStrategyType strategy,
+                                             String customerType,
+                                             Boolean sale,
+                                             String serviceClass)
     {
-        throw new NotImplementedException();
+        return client.calculateAdjustment(strategy, new Transaction()).getTaxData();
     }
     
-    //<get-address pcode="#[map-payload:anIntegerCode]"/>
     @Processor
-    public ArrayOfAddressData getAddress(Long pCode)
+    public List<AddressData> getAddress(Long pCode)
     {
-        throw new NotImplementedException();
+        return client.getAddress(pCode).getAddressData();
     }
-    //<get-tax-category taxCode="#[map-payload:anIntegerTaxCode]"/>
+
     @Processor
     public String getTaxCategory(Integer taxCode)
     {
-        throw new NotImplementedException();
+        return client.getTaxCategory(taxCode);
     }
     
-    //<get-tax-description pcode="#[map-payload:anIntegerCode]"/>
     @Processor
     public String getTaxDescription(Integer taxCode)
     {
-        throw new NotImplementedException();
+        return client.getTaxDescription(taxCode);
     }
     
-    //<convert-fips-to-pcode fips="#[map-payload:fipsCode]"/>
     @Processor
     public Long convertFipsToPcode(String fips)
     {
-        throw new NotImplementedException();
+        return client.convertFipsToPcode(fips);
     }
     
-    //<convert-npanxx-to-pcode npanxxCode="#[map-payload:npanxxCode]"/>
     @Processor
-    public Long convertNpanxxToPcode(String npanxxCode)
+    public Long convertNpanxxToPcode(Long npanxxCode)
     {
-        throw new NotImplementedException();
+        return client.convertNpanxxToPcode(npanxxCode);
     }
     
     //<convert-zip-to-pcode zipCode="#[map-payload:aZipCode]"/>
     @Processor
     public Long convertZipToPcode(String zipCode)
     {
-        throw new NotImplementedException();
+        ZipAddress zipAddress = new ZipAddress();
+        zipAddress.setZipCode(zipCode);
+        
+        return client.convertZipToPcode(zipAddress);
     }
     
     //<get-server-time/>
+    /**
+     * {@sample.xml ../../../doc/EZTax-connector.xml.sample eztax:my-processor}
+     * 
+     * @return bla
+     */
     @Processor
     public XMLGregorianCalendar getServerTime()
     {
-        throw new NotImplementedException();
+        return client.getServerTime();
     }
     
-
-    /**
-     * Returns the username.
-     * 
-     * @return  with the username.
-     */
-    
-    public String getUsername()
-    {
-        return username;
-    }
-
-    /**
-     * Sets the username. 
-     *
-     * @param username  with the username.
-     */
-    
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    /**
-     * Returns the password.
-     * 
-     * @return  with the password.
-     */
-    
-    public String getPassword()
-    {
-        return password;
-    }
-
-    /**
-     * Sets the password. 
-     *
-     * @param password  with the password.
-     */
-    
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
 }

@@ -1,3 +1,11 @@
+<!-- BEGIN_INCLUDE(eztax:calculate-taxes) -->
+    <eztax:calculate-taxes content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:calculate-taxes) -->
+
+<!-- BEGIN_INCLUDE(eztax:calculate-adjustment) -->
+    <eztax:calculate-adjustment content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:calculate-adjustment) -->
+
 <!-- BEGIN_INCLUDE(eztax:get-address) -->
     <eztax:get-address content="#[map-payload:content]" />
 <!-- END_INCLUDE(eztax:get-address) -->

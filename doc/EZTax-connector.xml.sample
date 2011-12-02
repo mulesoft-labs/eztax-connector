@@ -1,3 +1,27 @@
-<!-- BEGIN_INCLUDE(eztax:my-processor) -->
-    <eztax:my-processor content="#[map-payload:content]" />
-<!-- END_INCLUDE(eztax:my-processor) -->
+<!-- BEGIN_INCLUDE(eztax:get-address) -->
+    <eztax:get-address content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:get-address) -->
+
+<!-- BEGIN_INCLUDE(eztax:get-tax-category) -->
+   <eztax:get-tax-category content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:get-tax-category) -->
+
+<!-- BEGIN_INCLUDE(eztax:get-tax-description) -->
+   <eztax:get-tax-description content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:get-tax-description) -->
+
+<!-- BEGIN_INCLUDE(eztax:convert-fips-to-pcode) -->
+   <eztax:convert-fips-to-pcode content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:convert-fips-to-pcode) -->
+
+<!-- BEGIN_INCLUDE(eztax:convert-npanxx-to-pcode) -->
+   <eztax:convert-npanxx-to-pcode content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:convert-npanxx-to-pcode) -->
+
+<!-- BEGIN_INCLUDE(eztax:convert-zip-to-pcode) -->
+   <eztax:convert-zip-to-pcode content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:convert-zip-to-pcode) -->
+
+<!-- BEGIN_INCLUDE(eztax:get-server-time) -->
+   <eztax:get-server-time content="#[map-payload:content]" />
+<!-- END_INCLUDE(eztax:get-server-time) -->

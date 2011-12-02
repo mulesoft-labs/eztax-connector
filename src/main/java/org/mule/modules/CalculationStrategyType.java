@@ -9,22 +9,22 @@ public enum CalculationStrategyType
     /**
      * 
      */
-    PCODE("PCode"), 
+    Pcode("PCode"), 
     
     /**
      * 
      */
-    FIPS("FipsCode"), 
+    Fips("FipsCode"), 
     
     /**
      * 
      */
-    NPANXX("NpaNxx"), 
+    Npanxx("NpaNxx"), 
     
     /**
      * 
      */
-    ZIP_ADDRESS("ZipAddress");
+    ZipAddress("ZipAddress");
     
     
     private String strat;

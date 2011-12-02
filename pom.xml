@@ -139,7 +139,7 @@
             <plugin>
 		        <groupId>org.apache.cxf</groupId>
 		        <artifactId>cxf-codegen-plugin</artifactId>
-		        <version>${cxf.version}</version>
+		        <version>2.3.0</version>
 		        <executions>
 		          <execution>
 		            <id>generate-sources</id>
@@ -148,6 +148,7 @@
 		              <goal>wsdl2java</goal>
 		            </goals>
 		            <configuration>
+		              <packageName>org.mule.modules.eztax.schema</packageName>
 		              <wsdlOptions>
 		                <wsdlOption>
                           <wsdl>src/main/resources/schema/EZTaxWebService1.wsdl</wsdl>

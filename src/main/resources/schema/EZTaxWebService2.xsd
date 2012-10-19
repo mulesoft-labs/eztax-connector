@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+
+    The software in this package is published under the terms of the CPAL v1.0
+    license, a copy of which has been included with this distribution in the
+    LICENSE.md file.
+
+-->
+
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="EZTaxWebService.xsd" namespace="http://schemas.datacontract.org/2004/07/EZTaxWebService" />
   <xs:element name="CalcTaxesWithZipAddress">

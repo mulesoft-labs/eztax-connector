@@ -25,13 +25,12 @@
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/eztax http://www.mulesoft.org/schema/mule/eztax/1.0-SNAPSHOT/mule-eztax.xsd">
+        http://www.mulesoft.org/schema/mule/eztax http://www.mulesoft.org/schema/mule/eztax/current/mule-eztax.xsd">
 
-    <eztax:config myProperty="Some string"
-            username="xxx" password="yyy"/>
+    <eztax:config username="xxx" password="yyy"/>
 
     <flow name="testFlow">
-        <eztax:my-processor content="Another string"/>
+        <eztax:convert-fips-to-pcode fips="1" />
     </flow>
 
 </mule>

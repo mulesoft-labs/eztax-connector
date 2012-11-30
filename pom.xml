@@ -20,6 +20,7 @@
         <cxf.version>2.5.1</cxf.version>
         <commons.wsse.version>1.0-beta-1</commons.wsse.version>
         <mom.version>1.2.1</mom.version>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
     </properties>
     <build>
         <plugins>
